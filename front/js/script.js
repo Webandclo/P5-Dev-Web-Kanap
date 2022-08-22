@@ -10,13 +10,13 @@ fetch("http://localhost:3000/api/products/")
     //On boucle sur chaque produit et on construit les cards en HTML
     for (let jsonProduct of jsonListProduct) {
 
-        contenu += ` <a href="./product.html?id=${jsonProduct._id}">
-                    <article>
-                    <img src="${jsonProduct.imageUrl}" alt="${jsonProduct.altTxt}">
-                    <h3 class="productName">${jsonProduct.name}</h3>
-                    <p class="productDescription">${jsonProduct.description}</p>
-                    </article>
-                </a> `
+        contenu += `    <a href="./product.html?id=${jsonProduct._id}">
+                        <article>
+                        <img src="${jsonProduct.imageUrl}" alt="${jsonProduct.altTxt}">
+                        <h3 class="productName">${jsonProduct.name}</h3>
+                        <p class="productDescription">${jsonProduct.description}</p>
+                        </article>
+                        </a> `
     }
 
     // Selectionner dans le DOM
