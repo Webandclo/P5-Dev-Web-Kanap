@@ -95,34 +95,39 @@ function affichageInfoByInnerHTML(product) {
 
 
 
-function addToCart(article) {
-}
-
 const productQuantity = document.getElementById("quantity");
 const productColor = document.querySelector("#colors");
 
 
 
 
+function addToCart() {
+}
 
+  const btnAddToCArd = document.querySelector('#addToCart');
 
-const btnAddToCArd = document.querySelector('#addToCart');
+  btnAddToCArd.addEventListener("click", function () {
+    if (productQuantity.value > 0 && productQuantity.value <=100 && productQuantity.value != 0){
+      //On stock le choix de la quantité
+    const quantityValue = productQuantity.value ;
+        //On stock le choix de la couleur
+    const colorValue = productColor.value;
+    console.log("quantité", quantityValue);
+    console.log("coleur", colorValue);
+    console.log('id produit',idProduct)
+    localStorage.setItem('product',JSON.stringify({Couleur : colorValue, quantity: quantityValue, idproduit : idProduct}));
 
-btnAddToCArd.addEventListener("click", function () {
-  if (productQuantity.value > 0 && productQuantity.value <=100 && productQuantity.value != 0){
-     //On stock le choix de la quantité
-  const quantityValue = productQuantity.value ;
-      //On stock le choix de la couleur
-  const colorValue = productColor.value;
-  console.log("quantité", quantityValue);
-  console.log("coleur", colorValue);
-  console.log('id produit',idProduct)
-  localStorage.setItem('product',JSON.stringify({Couleur : colorValue, quantity: quantityValue, idproduit : idProduct}));
+    productInfo = JSON.parse(localStorage.getItem('product'))
+    console.table(productInfo);
+    } if (productQuantity.value > 100 || productQuantity.value <= 0 ){
+      let messageQuantite = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i>Quantité maximum disponible 100 pièces</i>`);
+    } 
+    //document.getElementById('title').innerHTML = productInfo.Couleur;
+  });
 
-  productInfo = JSON.parse(localStorage.getItem('product'))
-  console.table(productInfo);
-  } if (productQuantity.value > 100 || productQuantity.value <= 0 ){
-    let messageQuantite = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i>Quantité maximum disponible 100 pièces</i>`);
-  } 
-  //document.getElementById('title').innerHTML = productInfo.Couleur;
-});
+  let btnClearLocalStorage = document.querySelector('#addToCart').insertAdjacentHTML("afterend", `<button id="ClearStorage">Clear Local Storage</button>`);
+  let btnClear = document.querySelector("#ClearStorage");
+  btnClear.addEventListener("click", function () {
+  alert('Le local storage à été effacer');
+    localStorage.clear();
+  });
