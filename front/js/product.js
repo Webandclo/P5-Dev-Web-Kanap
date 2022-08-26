@@ -17,9 +17,6 @@ if(search_params.has('id')) {
 }
 
 
-// Constante couleur & quantité
-const productColor = document.querySelector ('#colors');
-const productQuantity = document.querySelector('#quantity');
 
 ///
   // Requête de l'API
@@ -31,7 +28,7 @@ const productQuantity = document.querySelector('#quantity');
 
       const responseProduct = await response.json();
 
-      //console.log("responseProduct", responseProduct)
+      console.log("responseProduct", responseProduct)
       //affichageInfoByCreateElement(responseProduct);
       affichageInfoByInnerHTML(responseProduct)
 
@@ -53,17 +50,8 @@ const productQuantity = document.querySelector('#quantity');
 
 // Selectionner dans le DOM
 
-function getPost(product){
-      //Ajouter image 
-      let productImage = document.createElement("img");
-      document.querySelector(".item__img").appendChild(productImage);
-      productImage.src = product.imageUrl;
-      productImage.alt = product.altTxt;
-}
 
-//getPost(product); // On appelle la fonction
 
-////
 
 // Récupération des infos des produits
 function affichageInfoByCreateElement(product) {
@@ -90,6 +78,7 @@ function affichageInfoByCreateElement(product) {
 }
 
 function affichageInfoByInnerHTML(product) {
+  //Note : afterbegin = before its first child of the element
   document.querySelector(".item__img").insertAdjacentHTML("afterbegin", `<img src="${product.imageUrl}" alt="${product.altTxt}">`);
   document.querySelector("#title").insertAdjacentHTML("afterbegin", `${product.name}`);
   document.querySelector("#price").insertAdjacentHTML("afterbegin", `${product.price}`);
@@ -98,4 +87,42 @@ function affichageInfoByInnerHTML(product) {
     document.querySelector("#colors").innerHTML += `<option value="${productSelectColor}">${productSelectColor}</option>`
   };
 
+
 }
+
+
+//Gestion du panier
+
+
+
+function addToCart(article) {
+}
+
+const productQuantity = document.getElementById("quantity");
+const productColor = document.querySelector("#colors");
+
+
+
+
+
+
+const btnAddToCArd = document.querySelector('#addToCart');
+
+btnAddToCArd.addEventListener("click", function () {
+  if (productQuantity.value > 0 && productQuantity.value <=100 && productQuantity.value != 0){
+     //On stock le choix de la quantité
+  const quantityValue = productQuantity.value ;
+      //On stock le choix de la couleur
+  const colorValue = productColor.value;
+  console.log("quantité", quantityValue);
+  console.log("coleur", colorValue);
+  console.log('id produit',idProduct)
+  localStorage.setItem('product',JSON.stringify({Couleur : colorValue, quantity: quantityValue, idproduit : idProduct}));
+
+  productInfo = JSON.parse(localStorage.getItem('product'))
+  console.table(productInfo);
+  } if (productQuantity.value > 100 || productQuantity.value <= 0 ){
+    let messageQuantite = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i>Quantité maximum disponible 100 pièces</i>`);
+  } 
+  //document.getElementById('title').innerHTML = productInfo.Couleur;
+});
