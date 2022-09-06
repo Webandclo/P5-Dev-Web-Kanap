@@ -266,3 +266,9 @@ footer .footerSecondary {
 		width: 75%;
 	}
 }
+
+/* Custom */
+#message_color, #message_quantity {
+	font-size: 0.8em;
+	color: #f9d32a;
+}

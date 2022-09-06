@@ -17,6 +17,8 @@ fetch("http://localhost:3000/api/products/")
                         <p class="productDescription">${jsonProduct.description}</p>
                         </article>
                         </a> `
+                        //console.log(jsonProduct._id);
+                        //console.log(jsonProduct);
     }
 
     // Selectionner dans le DOM

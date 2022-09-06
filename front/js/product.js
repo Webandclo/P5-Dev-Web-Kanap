@@ -28,7 +28,8 @@ if(search_params.has('id')) {
 
       const responseProduct = await response.json();
 
-      console.log("responseProduct", responseProduct)
+      console.log("responseProduct", responseProduct);
+      console.log('nom du produit',responseProduct.name);
       //affichageInfoByCreateElement(responseProduct);
       affichageInfoByInnerHTML(responseProduct)
 
@@ -101,28 +102,37 @@ function affichageInfoByInnerHTML(product) {
 
 
   let valueQuantity = document.getElementById("quantity").value;
+  let quantityNumber = valueQuantity;
+  //let quantityNumber = parseInt(valueQuantity);
   let colorValue = document.querySelector("#colors").value;
 
 
-  if (valueQuantity <= 0 || valueQuantity > 100){
+
+
+  let selectorQuantity = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i id='message_quantity'></i> `);
+  let selectorColor = document.querySelector('.item__content__settings__color').insertAdjacentHTML("afterend", `<i id='message_color'></i> `);
+  
+  if (quantityNumber <= 0 || quantityNumber > 100){
     alert("Merci de choisir une quantité comprise entre 0 et 100");
-    let messageQuantite = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i>Merci de choisir une quantité comprise entre 0 et 100</i>`);
+    let messageQuantity = document.getElementById("message_quantity").innerHTML = "Merci de choisir une quantité comprise entre 0 et 100";
+    
+    
   }else  if (colorValue == ""){
-    alert("Merci de choisir une quantité comprise entre 0 et 100");
-    let messageQuantite = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i>Merci de choisir une quantité comprise entre 0 et 100</i>`);
+    alert("Merci de choisir une couleur");
+    let messageColor = document.getElementById("message_color").innerHTML = "Merci de choisir une couleur";
   }
   else{
 
     const productId = {
       id: idProduct,
       color: colorValue,
-      quantity: valueQuantity
+      quantity: quantityNumber
   }
 
 
 
   addPanier(productId);
-
+  
 
   }
 });
@@ -143,13 +153,18 @@ function getPanier() {
 function addPanier(product) {
   let panier = getPanier();
 
-  let foundProduct = panier.find(produitCourant => produitCourant.id == product.id) && panier.find(produitCourant => produitCourant.color == product.color)
+  let foundProduct = panier.find(produitCourant => produitCourant.id === product.id) && panier.find(produitCourant => produitCourant.color == product.color)
 
   
   if (foundProduct != undefined) {
-      foundProduct.quantity += product.quantity
-  } else {
 
+    let quantitySelectionne = product.quantity;
+    let numberQuantity = quantitySelectionne;
+    
+      foundProduct.quantity += numberQuantity;
+      alert('produit ajouté')
+  } else {
+    alert('nouveau produit')
       panier.push(product)
   }
 
@@ -158,9 +173,27 @@ function addPanier(product) {
 
 
 
+
+
 function savePanier(panier) {
-  localStorage.setItem("panier", JSON.stringify(panier))
+  localStorage.setItem("panier", JSON.stringify(panier));
+
+  // console.log('id',contenuPanier.id);
+  // console.log('color',contenuPanier.color);
+  // console.log('quantity',contenuPanier.quantity);
+
+  if (window.confirm("Votre produit ${jsonProduct.name} a bien été ajouté au panier, voulez vous voir votre panier ?")) {
+    window.open("cart.html");
+  }
+  
+
+
 }
+
+
+
+
+
 
   //   if (productQuantity.value > 0 && productQuantity.value <=100 && productQuantity.value != 0){
   //     //On stock le choix de la quantité
