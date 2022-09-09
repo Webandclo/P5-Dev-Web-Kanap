@@ -102,10 +102,8 @@ function affichageInfoByInnerHTML(product) {
 
 
   let valueQuantity = document.getElementById("quantity").value;
-  let quantityNumber = valueQuantity;
-  //let quantityNumber = parseInt(valueQuantity);
+  let quantityNumber = parseInt(valueQuantity);
   let colorValue = document.querySelector("#colors").value;
-
 
 
 
@@ -122,7 +120,6 @@ function affichageInfoByInnerHTML(product) {
     let messageColor = document.getElementById("message_color").innerHTML = "Merci de choisir une couleur";
   }
   else{
-
     const productId = {
       id: idProduct,
       color: colorValue,
@@ -130,10 +127,13 @@ function affichageInfoByInnerHTML(product) {
   }
 
 
-
   addPanier(productId);
+  // ${nomCanape}
   
-
+  if (window.confirm(`Votre produit  a bien été ajouté au panier, voulez vous voir votre panier ?`)) {
+    window.location.assign("cart.html");
+  }
+  
   }
 });
 
@@ -181,12 +181,6 @@ function savePanier(panier) {
   // console.log('id',contenuPanier.id);
   // console.log('color',contenuPanier.color);
   // console.log('quantity',contenuPanier.quantity);
-
-  if (window.confirm("Votre produit ${jsonProduct.name} a bien été ajouté au panier, voulez vous voir votre panier ?")) {
-    window.open("cart.html");
-  }
-  
-
 
 }
 
