@@ -101,9 +101,10 @@ function affichageInfoByInnerHTML(product) {
 let selectorQuantity = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i id='message_quantity'></i> `);
 let selectorColor = document.querySelector('.item__content__settings__color').insertAdjacentHTML("afterend", `<i id='message_color'></i> `);
   
-  let btnAddToCArd = document.querySelector('#addToCart');
+let btnAddToCArd = document.querySelector('#addToCart');
 
-  btnAddToCArd.addEventListener("click", function () {
+  
+btnAddToCArd.addEventListener("click", function () {
 
 
   let valueQuantity = document.getElementById("quantity").value;
@@ -143,54 +144,6 @@ let selectorColor = document.querySelector('.item__content__settings__color').in
   
   }
 });
-
-
-
-function getPanier() {
-  let panier = localStorage.getItem("panier")
-  if (panier == null) {
-      return []
-  } else {
-      return JSON.parse(panier)
-  }
-}
-
-
-
-function addPanier(product) {
-  let panier = getPanier();
-
-  let foundProduct = panier.find(produitCourant => produitCourant.id === product.id) && panier.find(produitCourant => produitCourant.color == product.color)
-
-  
-  if (foundProduct != undefined) {
-
-    let quantitySelectionne = product.quantity;
-    let numberQuantity = quantitySelectionne;
-    
-      foundProduct.quantity += numberQuantity;
-      alert('produit ajouté')
-  } else {
-    alert('nouveau produit')
-      panier.push(product)
-  }
-
-  savePanier(panier)
-}
-
-
-
-
-
-function savePanier(panier) {
-  localStorage.setItem("panier", JSON.stringify(panier));
-
-  // console.log('id',contenuPanier.id);
-  // console.log('color',contenuPanier.color);
-  // console.log('quantity',contenuPanier.quantity);
-
-}
-
 
 
 
