@@ -9,6 +9,7 @@ var url = new URL(str);
 
 //console.log( 'url.searchParams.get("id") idProduct :', name); //id du produit
 
+var nomCanape = "";
 
 var search_params = new URLSearchParams(url.search); 
 if(search_params.has('id')) {
@@ -79,6 +80,8 @@ function affichageInfoByCreateElement(product) {
 }
 
 function affichageInfoByInnerHTML(product) {
+
+  nomCanape = product.name;
   //Note : afterbegin = before its first child of the element
   document.querySelector(".item__img").insertAdjacentHTML("afterbegin", `<img src="${product.imageUrl}" alt="${product.altTxt}">`);
   document.querySelector("#title").insertAdjacentHTML("afterbegin", `${product.name}`);
@@ -95,7 +98,9 @@ function affichageInfoByInnerHTML(product) {
 //Gestion du panier
 
 
-
+let selectorQuantity = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i id='message_quantity'></i> `);
+let selectorColor = document.querySelector('.item__content__settings__color').insertAdjacentHTML("afterend", `<i id='message_color'></i> `);
+  
   let btnAddToCArd = document.querySelector('#addToCart');
 
   btnAddToCArd.addEventListener("click", function () {
@@ -105,21 +110,22 @@ function affichageInfoByInnerHTML(product) {
   let quantityNumber = parseInt(valueQuantity);
   let colorValue = document.querySelector("#colors").value;
 
+  document.querySelector(".item__content__settings__color select").classList.remove('warning');
+  document.querySelector(".item__content__settings__quantity input").classList.remove('warning');
 
-
-  let selectorQuantity = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i id='message_quantity'></i> `);
-  let selectorColor = document.querySelector('.item__content__settings__color').insertAdjacentHTML("afterend", `<i id='message_color'></i> `);
   
   if (quantityNumber <= 0 || quantityNumber > 100){
     alert("Merci de choisir une quantité comprise entre 0 et 100");
     let messageQuantity = document.getElementById("message_quantity").innerHTML = "Merci de choisir une quantité comprise entre 0 et 100";
-    
-    
+    let warningQuantity = document.querySelector(".item__content__settings__quantity input").classList.add("warning");
   }else  if (colorValue == ""){
     alert("Merci de choisir une couleur");
     let messageColor = document.getElementById("message_color").innerHTML = "Merci de choisir une couleur";
+    let warningQuantity = document.querySelector(".item__content__settings__color select").classList.add("warning");
   }
   else{
+    document.querySelector(".item__content__settings__color select").classList.remove('warning');
+    document.querySelector(".item__content__settings__quantity input").classList.remove('warning');
     const productId = {
       id: idProduct,
       color: colorValue,
@@ -130,7 +136,8 @@ function affichageInfoByInnerHTML(product) {
   addPanier(productId);
   // ${nomCanape}
   
-  if (window.confirm(`Votre produit  a bien été ajouté au panier, voulez vous voir votre panier ?`)) {
+
+  if (window.confirm(`Votre produit ${nomCanape} a bien été ajouté au panier, voulez vous voir votre panier ?`)) {
     window.location.assign("cart.html");
   }
   

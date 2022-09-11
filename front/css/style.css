@@ -270,5 +270,11 @@ footer .footerSecondary {
 /* Custom */
 #message_color, #message_quantity {
 	font-size: 0.8em;
-	color: #f9d32a;
+	color: #f5b288;
+}
+.warning {
+	border : solid 1px #ee6216 !important;
+	/* border : solid 1px red; */
+	/* color: red !important;
+	font-weight: bold; */
 }
