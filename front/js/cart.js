@@ -26,6 +26,7 @@ let form = document.querySelector('.cart__order__form')
 form.firstName.addEventListener('change', function () {
     validNameCity(this)
     console.log("Change firstName");
+
 })
 
 form.lastName.addEventListener('change', function () {
@@ -259,11 +260,11 @@ function GestionModifQuantite() {
     document.querySelectorAll(".itemQuantity").forEach(item => item.addEventListener("change", (e) => {
 
 
-        let quantity = e.target.closest('.itemQuantity').value
+        let quantity = e.target.closest('.itemQuantity').value;
         //console.log(e.target.closest('.itemQuantity').value);
-        let quantityNumber = parseInt(quantity)
-        let deletItem = e.target.closest('[data-id]')
-        let product = deletItem.dataset
+        let quantityNumber = parseInt(quantity);
+        let deletItem = e.target.closest('[data-id]');
+        let product = deletItem.dataset;
 
         //console.log(product)
 
@@ -276,16 +277,17 @@ function GestionModifQuantite() {
 
         if (quantityNumber <= 0) {
             //removeFromPanier(productID)
-            alert("Attention vous avez saisi une valeur négative pour la quantité");
+            alert("Vous ne pouvez pas selectionner une quantité avec une valeur négative");
             window.location.assign("cart.html")
         } else if (quantityNumber > 100) {
             //removeFromPanier(productID)
-            alert("Attention la qantité ne peut pas dépasser 100");
+            alert("Vous ne pouvez pas selectionner une quantité qui dépasse 100");
             window.location.assign("cart.html")
         } else {
 
             // ajout de la quantité s'il n'y a pas d'anomalie 
             addQuantity(productID)
+            alert("Votre changement de quantité a bien été prie en compte");
             // affichage de la quantité et du prix total
             AffichagetotalProduit()
 
@@ -301,7 +303,7 @@ function GestionModifQuantite() {
 // regex nom, prénom et ville
 
 function validNameCity(inputName) {
-    let nameRegexp = new RegExp(/^[a-z ,.'-]+$/i)
+    let nameRegexp = new RegExp(/^[A-z \à\é\è\ô\ê\ë\ï\ç,.'-]+$/i)
 
     let testName = nameRegexp.test(inputName.value)
     let messageName = inputName.nextElementSibling
@@ -309,10 +311,12 @@ function validNameCity(inputName) {
         messageName.innerHTML = ""
         return true
     } else {
-        messageName.innerHTML = "Invalide"
+        messageName.innerHTML = "Information incorrecte, veuillez vérifier les informations saisies."
         return false
     }
 }
+
+
 
 // Regex mail 
 
@@ -324,7 +328,7 @@ function validMail(inputMail) {
         messageMail.innerHTML = ""
         return true
     } else {
-        messageMail.innerHTML = "Invalide"
+        messageMail.innerHTML = "Adresse mail incorrecte, veuillez vérifier les informations saisies"
         return false
     }
 }

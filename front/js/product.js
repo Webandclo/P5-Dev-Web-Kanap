@@ -127,6 +127,8 @@ btnAddToCArd.addEventListener("click", function () {
   else{
     document.querySelector(".item__content__settings__color select").classList.remove('warning');
     document.querySelector(".item__content__settings__quantity input").classList.remove('warning');
+    let messageColorClean = document.getElementById("message_color").innerHTML ="";
+    let messageQuantityClean = document.getElementById("message_quantity").innerHTML = "";
     const productId = {
       id: idProduct,
       color: colorValue,
