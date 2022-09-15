@@ -31,9 +31,9 @@ function addPanier(product) {
         let quantitySelectionne = product.quantity;
         let numberQuantity = quantitySelectionne;
         foundProduct.quantity += numberQuantity;
-        alert('Produit suplémentaire ajouté au panier')
+        console.log('Produit suplémentaire ajouté au panier')
     } else {
-        alert('Nouveau produit ajouté au panier')
+        console.log('Nouveau produit ajouté au panier')
         panier.push(product)
     }
     savePanier(panier)
