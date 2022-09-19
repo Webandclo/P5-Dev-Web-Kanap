@@ -49,7 +49,7 @@ function removeFromPanier(product) {
 }
 
 
-// Gestion de l'ajout de quantité 
+// Gestion de l'ajout de quantité dans le localStorage  
 
 function addQuantity(product) {
     let panier = getPanier()
@@ -58,6 +58,5 @@ function addQuantity(product) {
     if (foundProduct != undefined) {
         foundProduct.quantity = product.quantity
     }
-
     savePanier(panier)
 }

@@ -132,7 +132,6 @@ form.addEventListener("submit", function (e) {
 
 function affichagePanier(listeProduitAPI) {
 
-
     //console.log(index);
     // Récupérer le panier converti
     let panier = getPanier();
@@ -187,7 +186,7 @@ function affichagePanier(listeProduitAPI) {
         //affichePanierDom(panier);
         //console.log(recapPanierDom);
         zonePanier.innerHTML = recapPanierDom;
-        AffichagetotalProduit();
+        affichagetotalProduit();
     } else {
         // si il n'y a pas de panier on créait un H1 informatif et quantité appropriées
         document.querySelector("#totalQuantity").innerHTML = "0";
@@ -195,14 +194,14 @@ function affichagePanier(listeProduitAPI) {
         document.querySelector("h1").innerHTML =
             "Vous n'avez pas d'article dans votre panier";
     }
-    GestionModifQuantite();
-    GestionBoutonSuppressionProduit();
+    gestionModifQuantite();
+    gestionBoutonSuppressionProduit();
 }
 
 
 
 // fonction ajout nombre total produit et coût total
-function AffichagetotalProduit() {
+function affichagetotalProduit() {
 
     let objetProduits;
 
@@ -230,8 +229,6 @@ function AffichagetotalProduit() {
                         totalArticle += JSON.parse(produitCourant.quantity);
                         prixCombiné = JSON.parse(produitCourant.quantity) * JSON.parse(objetProduits[i].price);
                         totalPrix += prixCombiné;
-
-
                     }
                 }
             }
@@ -246,7 +243,7 @@ function AffichagetotalProduit() {
 
 
 // Suppression de l'élément ciblé au click 
-function GestionBoutonSuppressionProduit() {
+function gestionBoutonSuppressionProduit() {
     document.querySelectorAll(".deleteItem").forEach(item => item.addEventListener("click", (e) => {
         let deletItem = e.target.closest('[data-id]')
         let product = deletItem.dataset
@@ -256,9 +253,8 @@ function GestionBoutonSuppressionProduit() {
 }
 
 // Modifier l'élément ciblé au changement 
-function GestionModifQuantite() {
+function gestionModifQuantite() {
     document.querySelectorAll(".itemQuantity").forEach(item => item.addEventListener("change", (e) => {
-
 
         let quantity = e.target.closest('.itemQuantity').value;
         //console.log(e.target.closest('.itemQuantity').value);
@@ -289,13 +285,13 @@ function GestionModifQuantite() {
             addQuantity(productID)
             alert("Votre changement de quantité a bien été prie en compte");
             // affichage de la quantité et du prix total
-            AffichagetotalProduit()
+            affichagetotalProduit()
 
         }
     }))
 
     // Affichage de la quantité et du prix total
-    //AffichagetotalProduit();
+    //affichagetotalProduit();
 }
 
 
