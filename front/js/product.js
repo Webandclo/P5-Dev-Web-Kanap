@@ -11,41 +11,41 @@ var url = new URL(str);
 
 var nomCanape = "";
 
-var search_params = new URLSearchParams(url.search); 
-if(search_params.has('id')) {
+var search_params = new URLSearchParams(url.search);
+if (search_params.has('id')) {
   var idProduct = search_params.get('id');
-  console.log('name ',idProduct)
+  //('name ', idProduct)
 }
 
 
 
 ///
-  // Requête de l'API
-  async function getProduct() {
-    try {
-      const response = await fetch(
-        "http://localhost:3000/api/products/" + idProduct
-      );
+// Requête de l'API
+async function getProduct() {
+  try {
+    const response = await fetch(
+      "http://localhost:3000/api/products/" + idProduct
+    );
 
-      const responseProduct = await response.json();
+    const responseProduct = await response.json();
 
-      console.log("responseProduct", responseProduct);
-      console.log('nom du produit',responseProduct.name);
-      //affichageInfoByCreateElement(responseProduct);
-      affichageInfoByInnerHTML(responseProduct)
+    //console.log("responseProduct", responseProduct);
+    //console.log('nom du produit', responseProduct.name);
+    //affichageInfoByCreateElement(responseProduct);
+    affichageInfoByInnerHTML(responseProduct)
 
 
-    } catch (error) {
-      console.log(error.message);
-    }
-    // .catch(function(err) {
-    //   // Une erreur est survenue
-    //   return error;
-    // })
+  } catch (error) {
+    console.log(error.message);
   }
-  
-  
-  getProduct(); // On appelle la fonction
+  // .catch(function(err) {
+  //   // Une erreur est survenue
+  //   return error;
+  // })
+}
+
+
+getProduct(); // On appelle la fonction
 ///
 
 
@@ -55,7 +55,7 @@ if(search_params.has('id')) {
 
 
 
-// Récupération des infos des produits
+// Récupération des infos des produits  (Non utilisé)
 function affichageInfoByCreateElement(product) {
   let imgContainer = document.querySelector(".item__img");
   let productImg = document.createElement("img");
@@ -90,22 +90,17 @@ function affichageInfoByInnerHTML(product) {
   for (let productSelectColor of product.colors) {
     document.querySelector("#colors").innerHTML += `<option value="${productSelectColor}">${productSelectColor}</option>`
   };
-
-
 }
 
 
 //Gestion du panier
 
-
 let selectorQuantity = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i id='message_quantity'></i> `);
 let selectorColor = document.querySelector('.item__content__settings__color').insertAdjacentHTML("afterend", `<i id='message_color'></i> `);
-  
 let btnAddToCArd = document.querySelector('#addToCart');
 
-  
-btnAddToCArd.addEventListener("click", function () {
 
+btnAddToCArd.addEventListener("click", function () {
 
   let valueQuantity = document.getElementById("quantity").value;
   let quantityNumber = parseInt(valueQuantity);
@@ -114,36 +109,34 @@ btnAddToCArd.addEventListener("click", function () {
   document.querySelector(".item__content__settings__color select").classList.remove('warning');
   document.querySelector(".item__content__settings__quantity input").classList.remove('warning');
 
-  
-  if (quantityNumber <= 0 || quantityNumber > 100){
+
+  if (quantityNumber <= 0 || quantityNumber > 100) {
     alert("Merci de choisir une quantité comprise entre 0 et 100");
     let messageQuantity = document.getElementById("message_quantity").innerHTML = "Merci de choisir une quantité comprise entre 0 et 100";
     let warningQuantity = document.querySelector(".item__content__settings__quantity input").classList.add("warning");
-  }else  if (colorValue == ""){
+  } else if (colorValue == "") {
     alert("Merci de choisir une couleur");
     let messageColor = document.getElementById("message_color").innerHTML = "Merci de choisir une couleur";
     let warningQuantity = document.querySelector(".item__content__settings__color select").classList.add("warning");
   }
-  else{
+  else {
     document.querySelector(".item__content__settings__color select").classList.remove('warning');
     document.querySelector(".item__content__settings__quantity input").classList.remove('warning');
-    let messageColorClean = document.getElementById("message_color").innerHTML ="";
+    let messageColorClean = document.getElementById("message_color").innerHTML = "";
     let messageQuantityClean = document.getElementById("message_quantity").innerHTML = "";
     const productId = {
       id: idProduct,
       color: colorValue,
       quantity: quantityNumber
-  }
+    }
 
+    addPanier(productId);
+    // ${nomCanape}
 
-  addPanier(productId);
-  // ${nomCanape}
-  
+    if (window.confirm(`Votre produit ${nomCanape} a bien été ajouté au panier, voulez vous voir votre panier ?`)) {
+      window.location.assign("cart.html");
+    }
 
-  if (window.confirm(`Votre produit ${nomCanape} a bien été ajouté au panier, voulez vous voir votre panier ?`)) {
-    window.location.assign("cart.html");
-  }
-  
   }
 });
 
@@ -165,7 +158,7 @@ btnAddToCArd.addEventListener("click", function () {
   //   console.table(productInfo);
   //   } if (productQuantity.value > 100 || productQuantity.value <= 0 ){
   //     let messageQuantite = document.querySelector('.item__content__settings__quantity').insertAdjacentHTML("afterend", `<i>Quantité maximum disponible 100 pièces</i>`);
-  //   } 
+  //   }
   //   //document.getElementById('title').innerHTML = productInfo.Couleur;
   // });
 
